@@ -18,6 +18,10 @@ public class Killer {
     public static void tryKill(Context context) {
         int versionCode = BuildConfig.VERSION_CODE;
         String myProcessName = getMyProcessName();
+        // Something is wrong with accessing the /proc .
+        if (myProcessName.isEmpty()) {
+            return;
+        }
 
         SharedPreferences sharedPreferences = context.getSharedPreferences( SP_NAME_PREFIX + myProcessName,
                 MODE_PRIVATE);
