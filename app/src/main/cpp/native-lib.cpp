@@ -42,6 +42,10 @@ static std::string get_process_name(pid_t pid) {
     std::unique_ptr<char> cmdline(new char[max_cmdline_length]);
     snprintf(path, 256, "/proc/%d/cmdline", pid);
     FILE* file = fopen(path, "r");
+    if (file == nullptr) {
+        return {};
+    }
+
     char* results = fgets(cmdline.get(), max_cmdline_length, file);
     fclose(file);
     if (results) {
